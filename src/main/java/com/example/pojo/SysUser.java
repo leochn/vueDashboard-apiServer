@@ -9,7 +9,7 @@ public class SysUser {
 
     private String loginName;
 
-    private String password;
+    private String pwd;
 
     private String no;
 
@@ -78,11 +78,11 @@ public class SysUser {
     }
 
     public String getPassword() {
-        return password;
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPassword(String pwd) {
+        this.pwd = pwd == null ? null : pwd.trim();
     }
 
     public String getNo() {

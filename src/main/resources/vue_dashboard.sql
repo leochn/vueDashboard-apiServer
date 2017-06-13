@@ -5,7 +5,7 @@ create database vue_dashboard default character set utf8;
 create table `sys_user` (
   `id` varchar(64) not null comment 'id',
   `login_name` varchar(100) not null comment '登录名',
-  `password` varchar(100) not null comment '密码',
+  `pwd` varchar(100) not null comment '密码',
   `user_no` varchar(100) default null comment '工号',
   `user_name` varchar(100) default null comment '姓名',
   `email` varchar(100) default null comment '邮箱',
@@ -24,3 +24,6 @@ create table `sys_user` (
   `del_flag` char(1) not null default '0' comment '删除标记[1:删除]',
   primary key (`id`)
 ) engine=innodb default charset=utf8 comment='用户表';
+
+insert into sys_user (id,login_name,pwd,create_by,create_time,update_by,update_time) 
+       values('1','admin','admin','1',now(),'1',now());
