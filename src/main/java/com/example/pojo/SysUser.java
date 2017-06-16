@@ -5,15 +5,13 @@ import java.util.Date;
 public class SysUser {
     private String id;
 
-    private String officeId;
-
     private String loginName;
 
     private String pwd;
 
-    private String no;
+    private String userNo;
 
-    private String name;
+    private String userName;
 
     private String email;
 
@@ -27,31 +25,21 @@ public class SysUser {
 
     private String loginIp;
 
-    private Date loginDate;
+    private Date loginTimeLast;
 
     private String loginFlag;
 
     private String createBy;
 
-    private Date createDate;
+    private Date createTime;
 
     private String updateBy;
 
-    private Date updateDate;
+    private Date updateTime;
 
     private String remarks;
 
     private String delFlag;
-
-    private String alarmrate;
-
-    private String ticket;
-
-    private String emailVerifyCode;
-
-    private String emailVerifyCodeExpireDate;
-
-    private String orgId;
 
     public String getId() {
         return id;
@@ -59,14 +47,6 @@ public class SysUser {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(String officeId) {
-        this.officeId = officeId == null ? null : officeId.trim();
     }
 
     public String getLoginName() {
@@ -77,28 +57,28 @@ public class SysUser {
         this.loginName = loginName == null ? null : loginName.trim();
     }
 
-    public String getPassword() {
+    public String getPwd() {
         return pwd;
     }
 
-    public void setPassword(String pwd) {
+    public void setPwd(String pwd) {
         this.pwd = pwd == null ? null : pwd.trim();
     }
 
-    public String getNo() {
-        return no;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public void setNo(String no) {
-        this.no = no == null ? null : no.trim();
+    public void setUserNo(String userNo) {
+        this.userNo = userNo == null ? null : userNo.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getEmail() {
@@ -149,12 +129,12 @@ public class SysUser {
         this.loginIp = loginIp == null ? null : loginIp.trim();
     }
 
-    public Date getLoginDate() {
-        return loginDate;
+    public Date getLoginTimeLast() {
+        return loginTimeLast;
     }
 
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
+    public void setLoginTimeLast(Date loginTimeLast) {
+        this.loginTimeLast = loginTimeLast;
     }
 
     public String getLoginFlag() {
@@ -173,12 +153,12 @@ public class SysUser {
         this.createBy = createBy == null ? null : createBy.trim();
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getUpdateBy() {
@@ -189,12 +169,12 @@ public class SysUser {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getRemarks() {
@@ -211,45 +191,5 @@ public class SysUser {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
-
-    public String getAlarmrate() {
-        return alarmrate;
-    }
-
-    public void setAlarmrate(String alarmrate) {
-        this.alarmrate = alarmrate == null ? null : alarmrate.trim();
-    }
-
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket == null ? null : ticket.trim();
-    }
-
-    public String getEmailVerifyCode() {
-        return emailVerifyCode;
-    }
-
-    public void setEmailVerifyCode(String emailVerifyCode) {
-        this.emailVerifyCode = emailVerifyCode == null ? null : emailVerifyCode.trim();
-    }
-
-    public String getEmailVerifyCodeExpireDate() {
-        return emailVerifyCodeExpireDate;
-    }
-
-    public void setEmailVerifyCodeExpireDate(String emailVerifyCodeExpireDate) {
-        this.emailVerifyCodeExpireDate = emailVerifyCodeExpireDate == null ? null : emailVerifyCodeExpireDate.trim();
-    }
-
-    public String getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(String orgId) {
-        this.orgId = orgId == null ? null : orgId.trim();
     }
 }

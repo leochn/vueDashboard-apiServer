@@ -18,4 +18,10 @@ public class Constant {
 	public static final int JWT_EXPIRATION = 20*60*1000;  //millisecond,20分钟
 	public static final int JWT_REFRESH_INTERVAL = 55*60*1000;  //millisecond
 	public static final int JWT_REFRESH_TTL = 12*60*60*1000;  //millisecond
+	
+	/**
+	 * header
+	 */
+	public static final String AUTHORIZATION = "Authorization";
+	public static final String ACCESSTOKENERROR = "AccessTokenError";
 }

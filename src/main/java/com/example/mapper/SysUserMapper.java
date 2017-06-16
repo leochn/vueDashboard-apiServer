@@ -8,4 +8,5 @@ import com.example.pojo.SysUser;
 @Mapper
 public interface SysUserMapper {
 	public SysUser getLogin(@Param("loginName")String loginName,@Param("pwd")String password);
+	public Integer save(SysUser sysUser);
 }

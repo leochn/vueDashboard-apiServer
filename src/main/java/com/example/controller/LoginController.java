@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +21,7 @@ import com.example.utils.JsonResult;
 import com.example.utils.JwtUtil;
 
 @RestController
+@RequestMapping(value = "rest")
 public class LoginController {
 	@Autowired
 	private SysUserService sysUserService;
@@ -58,31 +56,4 @@ public class LoginController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 	
-	@RequestMapping(value = "test")
-	public ResponseEntity<JsonResult> test(String username,String password, HttpServletRequest request) {
-		System.out.println("Authorization=" + request.getHeader("Authorization"));
-		System.out.println("username=" + request.getParameter("username"));
-		System.out.println("password=" + password);
-		try {
-			JsonResult jsonResult = JsonResult.ok();
-			System.out.println("test..........");
-			return ResponseEntity.ok(jsonResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	}
-	
-	@RequestMapping(value = "us/{uid}")
-	public ResponseEntity<JsonResult> us(@PathVariable String uid) {
-		System.out.println("uid======" + uid);
-		try {
-			JsonResult jsonResult = JsonResult.ok();
-			return ResponseEntity.ok(jsonResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	}
-
 }

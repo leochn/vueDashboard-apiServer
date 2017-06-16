@@ -7,6 +7,7 @@ public class JsonResult {
 	private Integer status;
 	// data 数据条数
 	private Integer total;
+	
 	// 响应中的数据
 	private Object data;
 

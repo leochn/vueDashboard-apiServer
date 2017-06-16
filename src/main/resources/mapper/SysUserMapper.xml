@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mapper.SysUserMapper" >
-  <resultMap id="BaseResultMap" type="com.example.pojo.SysUser" >
+
+    <resultMap id="BaseResultMap" type="com.example.pojo.SysUser" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="office_id" property="officeId" jdbcType="VARCHAR" />
     <result column="login_name" property="loginName" jdbcType="VARCHAR" />
     <result column="pwd" property="pwd" jdbcType="VARCHAR" />
-    <result column="no" property="no" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="user_type" property="userType" jdbcType="CHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
-    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
-    <result column="login_flag" property="loginFlag" jdbcType="VARCHAR" />
+    <result column="login_time_last" property="loginTimeLast" jdbcType="TIMESTAMP" />
+    <result column="login_flag" property="loginFlag" jdbcType="CHAR" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="CHAR" />
-    <result column="alarmRate" property="alarmrate" jdbcType="VARCHAR" />
-    <result column="ticket" property="ticket" jdbcType="VARCHAR" />
-    <result column="email_verify_code" property="emailVerifyCode" jdbcType="VARCHAR" />
-    <result column="email_verify_code_expire_date" property="emailVerifyCodeExpireDate" jdbcType="VARCHAR" />
-    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
   </resultMap>
-  
   
   <select id="getLogin" resultType="com.example.pojo.SysUser" >
     select * from sys_user where login_name=#{loginName} and pwd=#{pwd};
   </select>
+  
+  	<insert id="save" parameterType="com.example.pojo.SysUser">
+		insert into sys_user (id,login_name,pwd,create_by,create_time,update_by,update_time) 
+       values(#{id},#{loginName},#{pwd},#{createBy},#{createTime},#{updateBy},#{updateTime});
+	</insert>
 
 </mapper>

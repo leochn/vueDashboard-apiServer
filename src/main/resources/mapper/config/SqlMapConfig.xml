@@ -6,6 +6,7 @@
 	<settings>
 		<!-- 驼峰自动映射 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="logImpl" value="LOG4J"/>  
 	</settings>
 
 </configuration>
