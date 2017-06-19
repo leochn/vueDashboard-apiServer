@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.config.Constant;
-import com.example.pojo.SysUser;
+import com.example.model.SysUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

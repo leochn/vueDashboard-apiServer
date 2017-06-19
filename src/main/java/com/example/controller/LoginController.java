@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.config.Constant;
-import com.example.pojo.SysUser;
+import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JsonResult;
 import com.example.utils.JwtUtil;
@@ -39,7 +39,10 @@ public class LoginController {
 //		System.out.println("===================================================================");
 		System.out.println("username=" + request.getParameter("username"));
 		try {
-			SysUser sysUser = this.sysUserService.getLogin(username, password);
+			SysUser user = new SysUser();
+			user.setUserName(username);
+			user.setPwd(password);
+			SysUser sysUser = this.sysUserService.queryOne(user);
 			String token = null;
 			if (sysUser != null) {
 				token = JwtUtil.generateToken("signingKey", sysUser.getLoginName());

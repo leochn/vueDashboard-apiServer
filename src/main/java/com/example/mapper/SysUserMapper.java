@@ -1,12 +1,7 @@
 package com.example.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import com.example.model.SysUser;
+import com.example.utils.MyMapper;
 
-import com.example.pojo.SysUser;
-
-@Mapper
-public interface SysUserMapper {
-	public SysUser getLogin(@Param("loginName")String loginName,@Param("pwd")String password);
-	public Integer save(SysUser sysUser);
+public interface SysUserMapper extends MyMapper<SysUser> {
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mapper.SysUserMapper" >
-
-    <resultMap id="BaseResultMap" type="com.example.pojo.SysUser" >
+  <resultMap id="BaseResultMap" type="com.example.model.SysUser" >
+    <!--
+      WARNING - @mbg.generated
+    -->
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="login_name" property="loginName" jdbcType="VARCHAR" />
     <result column="pwd" property="pwd" jdbcType="VARCHAR" />
@@ -23,14 +25,4 @@
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="CHAR" />
   </resultMap>
-  
-  <select id="getLogin" resultType="com.example.pojo.SysUser" >
-    select * from sys_user where login_name=#{loginName} and pwd=#{pwd};
-  </select>
-  
-  	<insert id="save" parameterType="com.example.pojo.SysUser">
-		insert into sys_user (id,login_name,pwd,create_by,create_time,update_by,update_time) 
-       values(#{id},#{loginName},#{pwd},#{createBy},#{createTime},#{updateBy},#{updateTime});
-	</insert>
-
 </mapper>
