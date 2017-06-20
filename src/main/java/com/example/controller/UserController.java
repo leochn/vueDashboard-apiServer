@@ -37,12 +37,16 @@ public class UserController {
 	//======================================================
 	
 	@RequestMapping(value = "test")
-	public ResponseEntity<JsonResult> test(String username,String password, HttpServletRequest request) {
+	public ResponseEntity<JsonResult> test(String loginname,String password, HttpServletRequest request) {
 		System.out.println("Authorization=" + request.getHeader("Authorization"));
-		System.out.println("username=" + request.getParameter("username"));
+		System.out.println("loginname=" + request.getParameter("loginname"));
 		System.out.println("password=" + password);
 		try {
-			JsonResult jsonResult = JsonResult.ok();
+			SysUser user = new SysUser();
+			user.setLoginName(loginname);
+			user.setPwd(password);
+			SysUser sysUser = this.sysUserService.queryOne(user);
+			JsonResult jsonResult = JsonResult.custom(sysUser);
 			System.out.println("test..........");
 			return ResponseEntity.ok(jsonResult);
 		} catch (Exception e) {

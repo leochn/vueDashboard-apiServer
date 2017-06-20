@@ -15,7 +15,7 @@ public class Constant {
 	 */
 	public static final String JWT_ID = "jwt";
 	public static final String JWT_SECRET = "7786df7fc3a34e26a61c034d5ec8245d";
-	public static final int JWT_EXPIRATION = 20*60*1000;  //millisecond,20分钟
+	public static final int JWT_EXPIRATION = 1*60*1000;  //millisecond,20分钟
 	public static final int JWT_REFRESH_INTERVAL = 55*60*1000;  //millisecond
 	public static final int JWT_REFRESH_TTL = 12*60*60*1000;  //millisecond
 	
@@ -24,4 +24,11 @@ public class Constant {
 	 */
 	public static final String AUTHORIZATION = "Authorization";
 	public static final String ACCESSTOKENERROR = "AccessTokenError";
+	
+	/**
+	 * claim
+	 */
+	public static final String CLAIMKEY="claimKey";
+	public static final String CLAIMKEYVALUE="eyJzdWIiOiJ7XCJsb2dpbk5hbWVcIValue";
+	
 }

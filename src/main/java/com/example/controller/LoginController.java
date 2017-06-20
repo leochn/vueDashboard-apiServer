@@ -27,7 +27,7 @@ public class LoginController {
 	private SysUserService sysUserService;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public ResponseEntity<JsonResult> login(@RequestParam("username") String username,
+	public ResponseEntity<JsonResult> login(@RequestParam("loginname") String loginname,
 			@RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response){
 //		Enumeration<String> names = request.getHeaderNames();
 //		System.out.println("postman-token=" + request.getHeader("postman-token"));
@@ -37,10 +37,10 @@ public class LoginController {
 //			System.out.println(name + ":" + request.getHeader(name));
 //		}
 //		System.out.println("===================================================================");
-		System.out.println("username=" + request.getParameter("username"));
+		System.out.println("loginname=" + request.getParameter("loginname"));
 		try {
 			SysUser user = new SysUser();
-			user.setUserName(username);
+			user.setLoginName(loginname);
 			user.setPwd(password);
 			SysUser sysUser = this.sysUserService.queryOne(user);
 			String token = null;
@@ -49,7 +49,7 @@ public class LoginController {
 				token = JwtUtil.generateToken(Constant.JWT_SECRET, JwtUtil.generalSubject(sysUser));
 				Map<String, Object> result = new HashMap<String, Object>();
 				result.put("token",token);
-				result.put("userName",sysUser.getLoginName()); //把用户信息返回,方便显示.
+				result.put("loginname",sysUser.getLoginName()); //把用户信息返回,方便显示.
 				JsonResult jsonResult = JsonResult.custom(result);
 				return ResponseEntity.ok(jsonResult);
 			}
@@ -58,5 +58,25 @@ public class LoginController {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
+	@RequestMapping(value = "login2")
+	public ResponseEntity<JsonResult> login2(){
+		try {
+			SysUser sysUser = this.sysUserService.queryById("1");
+			String token = null;
+			if (sysUser != null) {
+				token = JwtUtil.generateToken("signingKey", sysUser.getLoginName());
+				token = JwtUtil.generateToken(Constant.JWT_SECRET, JwtUtil.generalSubject(sysUser));
+				Map<String, Object> result = new HashMap<String, Object>();
+				result.put("token",token);
+				result.put("loginname",sysUser.getLoginName()); //把用户信息返回,方便显示.
+				JsonResult jsonResult = JsonResult.custom(result);
+				return ResponseEntity.ok(jsonResult);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
+	
 	
 }
