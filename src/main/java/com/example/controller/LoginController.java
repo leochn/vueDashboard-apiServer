@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +21,14 @@ import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JsonResult;
 import com.example.utils.JwtUtil;
+import com.example.utils.SpringContextHolder;
 
 @RestController
 @RequestMapping(value = "rest")
 public class LoginController {
 	@Autowired
 	private SysUserService sysUserService;
+	private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseEntity<JsonResult> login(@RequestParam("loginname") String loginname,
@@ -38,6 +42,9 @@ public class LoginController {
 //		}
 //		System.out.println("===================================================================");
 		System.out.println("loginname=" + request.getParameter("loginname"));
+		if (logger.isDebugEnabled()){
+			logger.debug("LoginController.......login........");
+		}
 		try {
 			SysUser user = new SysUser();
 			user.setLoginName(loginname);
@@ -60,6 +67,9 @@ public class LoginController {
 	}
 	@RequestMapping(value = "login2")
 	public ResponseEntity<JsonResult> login2(){
+		if (logger.isDebugEnabled()){
+			logger.debug("LoginController.......login2222222222222........");
+		}
 		try {
 			SysUser sysUser = this.sysUserService.queryById("1");
 			String token = null;
