@@ -25,5 +25,25 @@ create table `sys_user` (
   primary key (`id`)
 ) engine=innodb default charset=utf8 comment='用户表';
 
-insert into sys_user (id,login_name,pwd,create_by,create_time,update_by,update_time) 
-       values('1','admin','admin','1',now(),'1',now());
+
+
+
+insert into sys_user 
+      (id,login_name,pwd,user_no,user_name,email,phone,mobile,create_by,create_time,update_by,update_time) 
+values
+('01','admin','admin','no-0001','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('02','cs','cs','no-0002','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('03','zs','zs','no-0003','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('04','admin4','admin','no-0004','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('05','admin5','admin','no-0005','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('06','admin6','admin','no-0006','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('07','admin7','admin','no-0007','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('08','admin8','admin','no-0008','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('09','admin9','admin','no-0009','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('10','admin10','admin','no-00010','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('11','admin11','admin','no-00011','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('12','admin12','admin','no-00012','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now()),
+('13','admin13','admin','no-00013','小五哥','ce@163.com','02188888888','13888888888','1',now(),'1',now());
+
+
+

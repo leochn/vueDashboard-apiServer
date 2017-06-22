@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JsonResult;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping(value = "api")
@@ -22,18 +26,116 @@ public class UserController {
 	private SysUserService sysUserService;
 	
 	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public ResponseEntity<JsonResult> getPageListAndOrderBy(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "rows") Integer rows,
+			@RequestParam(value = "sortField", defaultValue = "id") String sortField,
+			@RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder) {
+		try {
+			PageInfo<SysUser> pageInfo = sysUserService.queryPageListByWhereAndOrderBy(new SysUser(), page, rows, sortField, sortOrder);
+			if (pageInfo != null) {
+				JsonResult result = JsonResult.custom(pageInfo.getTotal(), pageInfo.getList());
+				return ResponseEntity.ok(result);
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
+	
+	 /**
+     * 获取单个用户详情
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public ResponseEntity<JsonResult> user(@PathVariable("id") String id) {
+    	try {
+			SysUser SysUser = this.sysUserService.queryById(id);
+			if (SysUser != null) {
+				JsonResult result = JsonResult.custom(SysUser);
+				return ResponseEntity.ok(result);
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 	
 	
+    /**
+     * 新增用户
+     * @param SysUser
+     * @return
+     */
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ResponseEntity<JsonResult> addUser(@RequestBody SysUser sysUser) {
+    	try {
+    		Integer num = this.sysUserService.save(sysUser);
+			if (num == 1) {
+				JsonResult result = JsonResult.ok();
+				return ResponseEntity.ok(result);
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 	
 	
+    /**
+     * 编辑用户
+     * @param id
+     * @param SysUser
+     * @return
+     */
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<JsonResult> updateUser(@PathVariable("id") String id, @RequestBody SysUser sysUser) {
+		// 前后端分离,前端通过json的方式传输数据.
+		try {
+			sysUser.setId(id);
+			Integer num = this.sysUserService.updateSelective(sysUser);
+			if (num == 1) {
+				JsonResult result = JsonResult.ok();
+				return ResponseEntity.ok(result);
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
 	
 	
+	/**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<JsonResult>  deleteUser(@PathVariable("id") String id) {
+    	try {
+			Integer num = this.sysUserService.deleteById(id);
+			if (num == 1) {
+				JsonResult result = JsonResult.ok();
+				return ResponseEntity.ok(result);
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 	
 	
-	
-	
-	
-	
+	//======================================================
+	//======================================================
+	//======================================================
+	//======================================================
 	//======================================================
 	
 	@RequestMapping(value = "test")

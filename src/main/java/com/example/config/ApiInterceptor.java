@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,10 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JwtUtil;
-import com.example.utils.SpringContextUtil;
 
 @Component
 public class ApiInterceptor implements HandlerInterceptor {
+	
+	@Autowired
+	private SysUserService sysUserService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -43,8 +46,7 @@ public class ApiInterceptor implements HandlerInterceptor {
         		// 验证用户是否存在
         		SysUser sysUser = JwtUtil.getSysUser(authorization);
         		if (sysUser != null) {
-        			SysUserService sysUserService2 = (SysUserService) SpringContextUtil.getBean(SysUserService.class);
-        			SysUser user = sysUserService2.queryById("1");
+        			SysUser user = sysUserService.queryById(sysUser.getId());
         			if (user != null) {
         				flag = sysUser.getLoginName().equals(user.getLoginName());
         			}
