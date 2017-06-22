@@ -1,5 +1,6 @@
 package com.example.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -11,6 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 public class InterceptorConfig extends WebMvcConfigurerAdapter{
+	
+	@Autowired
+	private ApiInterceptor apiInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		/**
@@ -19,6 +24,6 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter{
 	     * excludePathPatterns 用户排除拦截
 	     */
 		//super.addInterceptors(registry);
-		registry.addInterceptor(new ApiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/rest/**");
+		registry.addInterceptor(apiInterceptor).addPathPatterns("/api/**").excludePathPatterns("/rest/**");
 	}
 }

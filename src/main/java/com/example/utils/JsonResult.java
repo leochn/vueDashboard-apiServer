@@ -6,7 +6,7 @@ public class JsonResult {
 	// 响应业务状态
 	private Integer status;
 	// data 数据条数
-	private Integer total;
+	private long total;
 	
 	// 响应中的数据
 	private Object data;
@@ -19,11 +19,11 @@ public class JsonResult {
 		this.status = status;
 	}
 
-	public Integer getTotal() {
+	public long getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
+	public void setTotal(long total) {
 		this.total = total;
 	}
 
@@ -69,7 +69,7 @@ public class JsonResult {
 		return jsonResult;
 	}
 
-	public static JsonResult custom(Integer total, Object data) {
+	public static JsonResult custom(long total, Object data) {
 		JsonResult jsonResult = new JsonResult();
 		jsonResult.setStatus(Constant.RESCODE_SUCCESS);
 		jsonResult.setTotal(total);
@@ -77,7 +77,7 @@ public class JsonResult {
 		return jsonResult;
 	}
 
-	public static JsonResult custom(Integer status, Integer total, Object data) {
+	public static JsonResult custom(Integer status, long total, Object data) {
 		JsonResult jsonResult = new JsonResult();
 		jsonResult.setStatus(status);
 		jsonResult.setTotal(total);

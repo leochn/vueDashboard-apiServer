@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.utils.CamelToUnderlineUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -77,7 +78,10 @@ public abstract class BaseService<T> {
 	 * @param record
 	 * @return
 	 */
-	public PageInfo<T> queryPageListByWhereAndOrderBy(T record,Integer page, Integer rows, String sortField, String sortOrder) {
+	public PageInfo<T> queryPageListByWhereAndOrderBy(T record,Integer page, Integer rows, String sort, String sortOrder) {
+		// 需要对排序的javabean属性进行解析,解析成数据库字段
+		// 驼峰转下划线
+		String sortField = CamelToUnderlineUtil.camelToUnderline(sort);
 		// 设置分页条件
 		PageHelper.startPage(page, rows);
 		Example example = new Example(record.getClass());
