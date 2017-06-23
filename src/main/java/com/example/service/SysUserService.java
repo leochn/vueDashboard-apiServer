@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.SysUser;
+import com.example.utils.IDUtil;
+import com.example.utils.UserThreadLocal;
 
 @Service
 public class SysUserService extends BaseService<SysUser>{
@@ -13,7 +15,7 @@ public class SysUserService extends BaseService<SysUser>{
 	
 	// ======================================
 	@Transactional(rollbackFor = {IllegalArgumentException.class})
-	public Integer save(SysUser sysUser){
+	public Integer save1(SysUser sysUser){
 		// 测试事务
 		save(sysUser);
 		SysUser sysUser2 = new SysUser();
@@ -27,4 +29,22 @@ public class SysUserService extends BaseService<SysUser>{
 		save(sysUser2);
 		return null;
 	}
+	
+
+	@Override
+	public Integer saveSelective(SysUser record) {
+		// 不为空的字段
+		SysUser sysUser = UserThreadLocal.get();
+		if (sysUser != null) {
+			record.setId(IDUtil.genSID());
+			record.setCreateBy(sysUser.getId());
+			record.setUpdateBy(sysUser.getId());
+			Date date = new Date();
+			// record.setCreateTime(date);
+			record.setUpdateTime(date);
+			return super.saveSelective(record);
+		}
+		return 0;
+	}
+	
 }

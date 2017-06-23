@@ -74,7 +74,7 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<JsonResult> addUser(@RequestBody SysUser sysUser) {
     	try {
-    		Integer num = this.sysUserService.save(sysUser);
+    		Integer num = this.sysUserService.saveSelective(sysUser);
 			if (num == 1) {
 				JsonResult result = JsonResult.ok();
 				return ResponseEntity.ok(result);
@@ -88,7 +88,7 @@ public class UserController {
 	
 	
     /**
-     * 编辑用户
+     * 更新用户
      * @param id
      * @param SysUser
      * @return
@@ -139,14 +139,14 @@ public class UserController {
 	//======================================================
 	
 	@RequestMapping(value = "test")
-	public ResponseEntity<JsonResult> test(String loginname,String password, HttpServletRequest request) {
+	public ResponseEntity<JsonResult> test(String loginname,String pwd, HttpServletRequest request) {
 		System.out.println("Authorization=" + request.getHeader("Authorization"));
 		System.out.println("loginname=" + request.getParameter("loginname"));
-		System.out.println("password=" + password);
+		System.out.println("pwd=" + pwd);
 		try {
 			SysUser user = new SysUser();
 			user.setLoginName(loginname);
-			user.setPwd(password);
+			user.setPwd(pwd);
 			SysUser sysUser = this.sysUserService.queryOne(user);
 			JsonResult jsonResult = JsonResult.custom(sysUser);
 			System.out.println("test..........");
