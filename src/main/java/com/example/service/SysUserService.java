@@ -47,4 +47,16 @@ public class SysUserService extends BaseService<SysUser>{
 		return 0;
 	}
 	
+	
+	@Override
+	public Integer updateSelective(SysUser record) {
+		SysUser sysUser = UserThreadLocal.get();
+		if (sysUser != null) {
+			record.setUpdateBy(sysUser.getId());
+			record.setUpdateTime(new Date());
+			return super.updateSelective(record);
+		}
+		return 0;
+	}
+	
 }
