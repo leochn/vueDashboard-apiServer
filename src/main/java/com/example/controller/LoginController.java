@@ -33,7 +33,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseEntity<JsonResult> login(@RequestParam("loginName") String loginName,
-			@RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response){
+			@RequestParam("pwd") String pwd, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("loginName=" + request.getParameter("loginName"));
 		if (logger.isDebugEnabled()){
 			logger.debug("LoginController.......login........");
@@ -41,7 +41,7 @@ public class LoginController {
 		try {
 			SysUser user = new SysUser();
 			user.setLoginName(loginName);
-			user.setPwd(password);
+			user.setPwd(pwd);
 			SysUser sysUser = this.sysUserService.queryOne(user);
 			String token = null;
 			if (sysUser != null) {
@@ -85,7 +85,7 @@ public class LoginController {
 	@RequestMapping(value = "userpost", method = RequestMethod.POST)
 	public ResponseEntity<JsonResult> postUser(
 			@RequestParam("loginName") String loginName,
-			@RequestParam("password") String password){
+			@RequestParam("pwd") String pwd){
 		// 测试使用, 接收前端提交的 表单格式数据.
 		try {
     		//Integer num = this.sysUserService.save(sysUser);

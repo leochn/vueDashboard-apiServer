@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JwtUtil;
+import com.example.utils.UserThreadLocal;
 
 @Component
 public class ApiInterceptor implements HandlerInterceptor {
@@ -23,6 +24,8 @@ public class ApiInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		UserThreadLocal.set(null); 
+		
 		//System.out.println("1.ApiInterceptor......preHandle......");
 		String authorization = request.getHeader(Constant.AUTHORIZATION);
 		System.out.println("request.getMethod()=" + request.getMethod());
@@ -43,11 +46,13 @@ public class ApiInterceptor implements HandlerInterceptor {
             // 验证时间是否过期,及签名是否正确.
         	flag = JwtUtil.isJwtValid(authorization);
         	if (flag) {
-        		// 验证用户是否存在
+        		// 时间没有过期,继续验证用户是否存在
         		SysUser sysUser = JwtUtil.getSysUser(authorization);
         		if (sysUser != null) {
         			SysUser user = sysUserService.queryById(sysUser.getId());
         			if (user != null) {
+        				// 用户信息写入本地线程
+        				UserThreadLocal.set(user); 
         				flag = sysUser.getLoginName().equals(user.getLoginName());
         			}
         		}
