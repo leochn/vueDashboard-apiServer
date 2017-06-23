@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.config.Constant;
 import com.example.model.SysUser;
 import com.example.service.SysUserService;
 import com.example.utils.JsonResult;
@@ -131,6 +134,30 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 	
+    /**
+     * 根据loginName查询用户信息
+     * @param loginName
+     * @return
+     */
+    @RequestMapping(value = "/user/{loginName}", method = RequestMethod.GET)
+    public ResponseEntity<JsonResult> getUserByLoginName(@PathVariable("loginName") String loginName) {
+    	System.out.println(",,,,,,,,//////////////");
+    	try {
+    		SysUser record = new SysUser();
+    		record.setLoginName(loginName);
+			SysUser SysUser = this.sysUserService.queryOne(record);
+			JsonResult result = null;
+			if (SysUser != null) {
+				result = JsonResult.custom(Constant.RESCODE_LOGINNAME_NOTNULL);
+			}else {
+				result = JsonResult.custom(Constant.RESCODE_LOGINNAME_NULL);
+			}
+			return ResponseEntity.ok(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 	
 	//======================================================
 	//======================================================
@@ -189,4 +216,25 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
+	
+	
+	@RequestMapping(value = "del")
+	public ResponseEntity<JsonResult> deleteAll(){
+		try {
+			Class<SysUser> clazz = SysUser.class;
+			String property = "id";
+			List<Object> values = new ArrayList<Object>();
+			values.add("15");
+			values.add("16");
+			values.add("17");
+			Integer num = sysUserService.deleteByIds(clazz, property, values);
+			JsonResult jsonResult = JsonResult.custom(num);
+			return ResponseEntity.ok(jsonResult);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
+	
+	
 }

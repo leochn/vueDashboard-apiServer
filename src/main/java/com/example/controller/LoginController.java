@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -149,6 +151,25 @@ public class LoginController {
 				JsonResult jsonResult = JsonResult.custom(result);
 				return ResponseEntity.ok(jsonResult);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
+	
+	///////////////////
+	@RequestMapping(value = "del")
+	public ResponseEntity<JsonResult> deleteAll(){
+		try {
+			Class<SysUser> clazz = SysUser.class;
+			String property = "id";
+			List<Object> values = new ArrayList<Object>();
+			values.add("15");
+			values.add("16");
+			values.add("17");
+			Integer num = sysUserService.deleteByIds(clazz, property, values);
+			JsonResult jsonResult = JsonResult.custom(num);
+			return ResponseEntity.ok(jsonResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -10,6 +10,8 @@ public class Constant {
 	public static final int RESCODE_NOEXIST = 1003;				//查询结果为空
 	public static final int RESCODE_NOAUTH = 1004;				//无操作权限
 	
+	public static final int RESCODE_LOGINNAME_NOTNULL = 2000;				//用户已经存在
+	public static final int RESCODE_LOGINNAME_NULL = 2001;			    //用户已经存在
 	/**
 	 * jwt
 	 */
