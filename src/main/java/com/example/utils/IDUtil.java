@@ -1,5 +1,7 @@
 package com.example.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -57,7 +59,15 @@ public class IDUtil {
 	
 	
 	public static void main(String[] args) {
-		for(int i=0;i< 100;i++)
-		System.out.println(genItemId());
+//		for(int i=0;i< 100;i++)
+//		System.out.println(genItemId());
+		
+		
+		List<Object> values = new ArrayList<Object>();
+		values.add("15");
+		values.add("16");
+		values.add("17");
+		
+		System.out.println(values);
 	}
 }

@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +51,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<JsonResult> user(@PathVariable("id") String id) {
     	try {
 			SysUser SysUser = this.sysUserService.queryById(id);
@@ -96,7 +94,7 @@ public class UserController {
      * @param SysUser
      * @return
      */
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<JsonResult> updateUser(@PathVariable("id") String id, @RequestBody SysUser sysUser) {
 		// 前后端分离,前端通过json的方式传输数据.
 		try {
@@ -115,12 +113,13 @@ public class UserController {
 	
 	
 	/**
-     * 删除用户
+     * 删除单个用户
      * @param id
      * @return
      */
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<JsonResult>  deleteUser(@PathVariable("id") String id) {
+    	System.out.println("del -----1-----");
     	try {
 			Integer num = this.sysUserService.deleteById(id);
 			if (num == 1) {
@@ -133,15 +132,32 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+    
+    /**
+     * 根据ids批量删除
+     * @return
+     */
+    @RequestMapping(value = "/users/del", method = RequestMethod.POST)
+	public ResponseEntity<JsonResult> deleteSelected(@RequestBody List<Object> list){
+		try {
+			String property = "id";
+			Integer num = sysUserService.deleteByIds(SysUser.class, property, list);
+			JsonResult jsonResult = JsonResult.custom(num);
+			return ResponseEntity.ok(jsonResult);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
+    
 	
     /**
      * 根据loginName查询用户信息
      * @param loginName
      * @return
      */
-    @RequestMapping(value = "/user/{loginName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/userinfo/{loginName}", method = RequestMethod.GET)
     public ResponseEntity<JsonResult> getUserByLoginName(@PathVariable("loginName") String loginName) {
-    	System.out.println(",,,,,,,,//////////////");
     	try {
     		SysUser record = new SysUser();
     		record.setLoginName(loginName);
@@ -165,7 +181,7 @@ public class UserController {
 	//======================================================
 	//======================================================
 	
-	@RequestMapping(value = "test")
+	@RequestMapping(value = "/test")
 	public ResponseEntity<JsonResult> test(String loginname,String pwd, HttpServletRequest request) {
 		System.out.println("Authorization=" + request.getHeader("Authorization"));
 		System.out.println("loginname=" + request.getParameter("loginname"));
@@ -184,7 +200,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 
-	@RequestMapping(value = "us/{uid}")
+	@RequestMapping(value = "/us/{uid}")
 	public ResponseEntity<JsonResult> us(@PathVariable String uid) {
 		System.out.println("uid======" + uid);
 		try {
@@ -195,46 +211,5 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
-	
-	
-	@RequestMapping(value = "save")
-	public ResponseEntity<JsonResult> save() {
-		try {
-			SysUser sysUser2 = new SysUser();
-			sysUser2.setId("21");
-			sysUser2.setLoginName("guest2");
-			sysUser2.setPwd("pass2");
-			sysUser2.setCreateBy("1");
-			sysUser2.setUpdateBy("1");
-			sysUser2.setCreateTime(new Date());
-			sysUser2.setUpdateTime(new Date());
-			this.sysUserService.save(sysUser2);
-			JsonResult jsonResult = JsonResult.ok();
-			return ResponseEntity.ok(jsonResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	}
-	
-	
-	@RequestMapping(value = "del")
-	public ResponseEntity<JsonResult> deleteAll(){
-		try {
-			Class<SysUser> clazz = SysUser.class;
-			String property = "id";
-			List<Object> values = new ArrayList<Object>();
-			values.add("15");
-			values.add("16");
-			values.add("17");
-			Integer num = sysUserService.deleteByIds(clazz, property, values);
-			JsonResult jsonResult = JsonResult.custom(num);
-			return ResponseEntity.ok(jsonResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	}
-	
 	
 }
